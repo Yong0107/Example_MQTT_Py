@@ -1,11 +1,11 @@
-import paho.mqtt.client as mqtt
 import random
+import paho.mqtt.client as mqtt
 import json  
 import datetime 
 import time
 
 # Time format
-ISOTIMEFORMAT = '%m/%d %H:%M:%S'
+TimeFormat = '%m/%d %H:%M:%S'
 
 # Inital the Client object
 client = mqtt.Client()
@@ -14,10 +14,9 @@ client = mqtt.Client()
 client.connect("10.0.0.51", 1883, 60)
 
 while True:
-    Temperture = random.randint(0,30)
-    t = datetime.datetime.now().strftime(ISOTIMEFORMAT)
-    payload = {'Temperature' : Temperture , 'Time' : t}
-    print (json.dumps(payload))
-    #THis
-    client.publish("/TestMQTT", json.dumps(payload))
+    Temperture = random.randint(5,55) #Here is the random data 
+    t = datetime.datetime.now().strftime(TimeFormat) #Making the timestamp data
+    payload = {'Temperature' : Temperture , 'Time' : t} #Here is making the payload or MQTT by Json format.
+    print (json.dumps(payload))# Transfer payload to MQTT
+    client.publish("/TestMQTT", json.dumps(payload)) #Publish the MQTT
     time.sleep(1)
