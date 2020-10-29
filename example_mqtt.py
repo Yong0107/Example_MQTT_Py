@@ -4,24 +4,20 @@ import json
 import datetime 
 import time
 
-# 設置日期時間的格式
+# Time format
 ISOTIMEFORMAT = '%m/%d %H:%M:%S'
 
-# 連線設定
-# 初始化地端程式
+# Inital the Client object
 client = mqtt.Client()
 
-# 設定登入帳號密碼
-client.username_pw_set("try","xxxx")
-
-# 設定連線資訊(IP, Port, 連線時間)
-client.connect("54.xxx.xxx.xxx", 1883, 60)
+# Setting the MQTT's IP, Port and keepalive time
+client.connect("10.0.0.51", 1883, 60)
 
 while True:
-    t0 = random.randint(0,30)
+    Temperture = random.randint(0,30)
     t = datetime.datetime.now().strftime(ISOTIMEFORMAT)
-    payload = {'Temperature' : t0 , 'Time' : t}
+    payload = {'Temperature' : Temperture , 'Time' : t}
     print (json.dumps(payload))
-    #要發布的主題和內容
-    client.publish("Try/MQTT", json.dumps(payload))
-    time.sleep(5)
+    #THis
+    client.publish("/TestMQTT", json.dumps(payload))
+    time.sleep(1)
